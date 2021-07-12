@@ -1,0 +1,48 @@
+
+
+<h1>Reports</h1>
+
+<%= link_to 'New Report', new_report_path, class:"btn btn-secondary" %>
+</br></br>
+<table class='table table-hover'>
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th>Vtype</th>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.name %></td>
+        <td><%= report.email %></td>
+        <td><%= report.phone %></td>
+        <td><%= report.address %></td>
+        <td><%= report.vtype %></td>
+        <%if report.status == "pending"%>
+          <td> <%= link_to report.status, change_status_report_path(report), class:"btn btn-secondary" %> 
+
+
+          </td>
+        <%elsif report.status == "inprogress"%>
+           <td>
+            <button type="button" class="btn btn-outline-primary" disabled="true">InProgress</button>
+           </td>
+        <% end %>
+        <td><%= link_to 'Show', report %></td>
+       
+        <td><%= link_to 'Delete', report, method: :delete, class:"btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

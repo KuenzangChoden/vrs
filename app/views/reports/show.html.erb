@@ -1,0 +1,49 @@
+
+
+<div class="jumbotron">
+  <h5 class="display-4"> <%= @report.name %> </h5>
+  <p class="lead"><%= @report.email %> | <%= @report.phone %> | <%= @report.address %></p>
+  <hr class="my-4">
+  <p>Reported a violence, <%= @report.vtype %></p>
+  <br>
+  Report status: 
+   <%if @report.status == "pending"%>
+          <td> <%= link_to @report.status, change_status_report_path(@report), class:"btn btn-secondary" %> 
+          </td>
+        <%elsif @report.status == "inprogress"%>
+           <td>
+            <div class="btn-group">
+
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                In progress
+              </button>
+              <div class="dropdown-menu">
+
+
+                 <% link_to "Completed", change_status_report_path(@report), class:"dropdown-item"%> 
+                 <% link_to "Rejected", change_status_report_path(@report), class:"dropdown-item"%> 
+  
+              </div>
+            </div>
+           </td>
+        <% end %>
+  <br>
+   <br>
+  <% (0...@report.images.count).each do |image| %>
+   
+      <%= image_tag(@report.images[image], style:' width:250px ; height: auto') %>
+    
+  <% end %>
+  <br>
+
+ 
+
+  <p class="lead">
+    
+  </p>
+</div>
+
+
+
+<%= link_to 'Edit', edit_report_path(@report), class:"btn btn-secondary" %> 
+<%= link_to 'Back', reports_path, class:"btn btn-secondary" %>

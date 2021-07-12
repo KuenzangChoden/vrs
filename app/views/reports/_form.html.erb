@@ -1,0 +1,57 @@
+<%= form_with(model: report) do |form| %>
+  <% if report.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h4>
+
+      <ul>
+        <% report.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class:"form-control", placeholder:"Name"  %>
+
+  </div>
+  </br>
+  <div class="field form-group">
+    <%= form.label :email %>
+    <%= form.email_field :email, class:"form-control", placeholder:"Email"  %>
+  </div>
+  </br>
+  <div class="field form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, class:"form-control" , placeholder:"Phone" %>
+  </div>
+  </br>
+  <div class="field form-group">
+    <%= form.label :address %>
+    <%= form.text_field :address, class:"form-control" , placeholder:"Address" %>
+  </div>
+  </br>
+  <div class="field form-group">
+    <%= form.label :vtype %>
+    <%= form.select :desired_attribute, ['Domestic violence', 'Sexual harassment', "Sexual assualt", "Cyber harassment"], class: "form-control" %>
+    <% form.text_field :vtype, class:"form-control" , placeholder:"Violence Type"  %>
+  </div>
+  </br>
+  <i>Attach image or video evidences if available. </i>
+  </br>
+  <div class="field form-group">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple:true, class:"form-control" , placeholder:"Attach image evidence"  %>
+  </div>
+  </br>
+  <div class="field form-group">
+    <%= form.label :videos %>
+    <%= form.file_field :videos, multiple:true, class:"form-control" , placeholder:"Attach video evidence"  %>
+  </div>
+  </br>
+  <div class="actions">
+    <%= form.submit "Submit Report", class:"btn btn-secondary" %>
+  </div>
+  </br>
+<% end %>
