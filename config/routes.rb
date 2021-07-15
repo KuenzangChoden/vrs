@@ -7,7 +7,15 @@ Rails.application.routes.draw do
 
   resources :reports do
     member do 
+      get :completed
+    end
+
+    member do 
       get :change_status
+    end
+
+     member do 
+      get :rejected
     end
   end
 

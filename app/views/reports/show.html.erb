@@ -2,41 +2,65 @@
 
 <div class="jumbotron">
   <h5 class="display-4"> <%= @report.name %> </h5>
-  <p class="lead"><%= @report.email %> | <%= @report.phone %> | <%= @report.address %></p>
+  <p class="lead"><%= @report.email %> | <%= @report.phone %></p>
+  <p>Address: <%= @report.address %></p>
   <hr class="my-4">
-  <p>Reported a violence, <%= @report.vtype %></p>
+  <p>Reported a violence, <%= @report.vtype %></p class="btn btn-outline-primary">
   <br>
-  Report status: 
-   <%if @report.status == "pending"%>
-          <td> <%= link_to @report.status, change_status_report_path(@report), class:"btn btn-secondary" %> 
-          </td>
-        <%elsif @report.status == "inprogress"%>
-           <td>
-            <div class="btn-group">
-
-              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                In progress
-              </button>
-              <div class="dropdown-menu">
-
-
-                 <% link_to "Completed", change_status_report_path(@report), class:"dropdown-item"%> 
-                 <% link_to "Rejected", change_status_report_path(@report), class:"dropdown-item"%> 
+  <div>
   
-              </div>
-            </div>
-           </td>
+   <%if @report.status == "pending"%>
+         <%= link_to @report.status, change_status_report_path(@report), class:"btn btn-secondary" %> 
+          
+        <%elsif @report.status == "inprogress"%>
+            
+         <div>Current Status: 
+           <button type="button" class="btn btn-outline-primary" disabled="true">In progress</button>
+         </div><br>
+         <div>Update Status: 
+            <%= link_to "Completed", completed_report_path(@report), class:"btn btn-success" %> 
+            <%= link_to "Rejected", rejected_report_path(@report), class:"btn btn-danger" %>
+         </div>
+            
+         <%elsif @report.status == "completed"%>
+         <div>Current Status: 
+           <button type="button" class="btn btn-success" disabled="true">Completed</button>
+         </div><br>
+
+          <%elsif @report.status == "rejected"%>
+         <div>Current Status: 
+           <button type="button" class="btn btn-success" disabled="true">Rejected</button>
+         </div><br>
+  
         <% end %>
+  </div>
   <br>
    <br>
+  <%if @report.images.attached? %>
+  <div>Image attachments: </div>
+  <hr>
   <% (0...@report.images.count).each do |image| %>
    
       <%= image_tag(@report.images[image], style:' width:250px ; height: auto') %>
     
   <% end %>
   <br>
+  <% end %>
+  <br>
 
- 
+   <%if @report.videos.attached? %>
+  <div>Video attachments: </div>
+  <hr>
+  <% (0...@report.videos.count).each do |video| %>
+   
+     <video controls width="auto" height="300">
+        <source src="<%= rails_blob_url(@report.videos[video]) %>" type="<%= @report.videos[video].content_type %>"/>
+      </video>
+
+     
+    
+  <% end %>
+  <% end %>
 
   <p class="lead">
     
@@ -44,6 +68,4 @@
 </div>
 
 
-
-<%= link_to 'Edit', edit_report_path(@report), class:"btn btn-secondary" %> 
 <%= link_to 'Back', reports_path, class:"btn btn-secondary" %>

@@ -1,5 +1,8 @@
 class Report < ApplicationRecord
 
+
+	has_one :admin
+
 	enum status: { pending: 0 , inprogress: 1 , completed: 2, rejected: 3}
 
 	enum vtype: { "Domestic violence": 0 , "Sexual harassment": 1 , "Sexual assualt": 2, "Cyber harassment": 3}

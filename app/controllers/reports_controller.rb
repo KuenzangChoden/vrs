@@ -1,10 +1,12 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: %i[ show edit update destroy change_status]
+  before_action :set_report, only: %i[ show edit update destroy change_status completed rejected]
   before_action :authenticate_admin!, except: %i[ new create ]
 
   # GET /reports or /reports.json
   def index
-    @reports = Report.all
+    Groupdate.time_zone = "Dhaka"
+    @reports = Report.paginate(page: params[:page], per_page: 15)
+
   end
 
   # GET /reports/1 or /reports/1.json
@@ -63,13 +65,29 @@ class ReportsController < ApplicationController
     end
   end
 
+  #Changing the status of the case
   def change_status
-    @report.inprogress! if @report.pending?
-    @report.completed! if @report.completed?
-    @report.rejected! if @report.rejected?
-    redirect_to reports_url, notice: "Report status is changed."
+    if @report.pending? #when the case is just reported
+      @report.inprogress!
+      @report.update(admin_id: current_admin.id)
+      # @report[:admin_id]=current_admin.id 
+      # @report_admin_id = current_admin.id
+      # @report.admin_id = current_admin.id
+
+      redirect_to request.referrer, notice: "The report is under your investigation now."
+    end 
+    
   end
 
+  def completed
+    @report.completed! 
+    redirect_to request.referrer, notice: "The report is completed."
+  end
+
+  def rejected
+    @report.rejected! 
+    redirect_to request.referrer, notice: "The report is rejected."
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
