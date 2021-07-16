@@ -14,9 +14,18 @@ Rails.application.routes.draw do
       get :change_status
     end
 
-     member do 
+    member do 
       get :rejected
     end
+
+    collection do
+      get :view_by
+      get '/weekly_reports/', to: 'reports#weekly', as: 'weekly_reports' 
+      get '/monthly_reports/', to: 'reports#monthly', as: 'monthly_reports' 
+      get '/yearly_reports/', to: 'reports#yearly', as: 'yearly_reports' 
+      get :grouped_report
+    end
+
   end
 
 

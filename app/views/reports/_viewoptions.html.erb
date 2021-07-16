@@ -1,0 +1,22 @@
+<div class="container">
+   <div class="row align-items-start">
+    <div class="col">
+      View: 
+    </div>
+    <div class="col">
+      <%= link_to "All", reports_path %>
+    </div>
+    <div class="col">
+      <%= link_to "Daily", view_by_reports_path("type"=>"daily") %>
+    </div>
+    <div class="col">
+      <%= link_to "Weekly", view_by_reports_path("type"=>"weekly") %>
+    </div>
+    <div class="col">
+      <%= link_to "Monthly", view_by_reports_path("type"=>"monthly") %>
+    </div>
+    <div class="col">
+      <%= link_to "Yearly", view_by_reports_path("type"=>"yearly") %>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,8 @@
   <p class="lead"><%= @report.email %> | <%= @report.phone %></p>
   <p>Address: <%= @report.address %></p>
   <hr class="my-4">
-  <p>Reported a violence, <%= @report.vtype %></p class="btn btn-outline-primary">
+  <p></p>
+  <p>Reported a <%= @report.vtype %> - <%= @report.created_at.to_s[0..10] %></p class="btn btn-outline-primary">
   <br>
   <div>
   
@@ -13,7 +14,7 @@
          <%= link_to @report.status, change_status_report_path(@report), class:"btn btn-secondary" %> 
           
         <%elsif @report.status == "inprogress"%>
-            
+         <p>Investigation started: <%= @report.investigation_date.to_s[0..10] %></p>   
          <div>Current Status: 
            <button type="button" class="btn btn-outline-primary" disabled="true">In progress</button>
          </div><br>
@@ -23,11 +24,15 @@
          </div>
             
          <%elsif @report.status == "completed"%>
+         <p>Investigation started: <%= @report.investigation_date.to_s[0..10] %></p>   
+         <p>Investigation concluded: <%= @report.conclusion_date.to_s[0..10] %></p>   
          <div>Current Status: 
            <button type="button" class="btn btn-success" disabled="true">Completed</button>
          </div><br>
 
           <%elsif @report.status == "rejected"%>
+          <p>Investigation started: <%= @report.investigation_date.to_s[0..10] %></p>   
+         <p>Investigation concluded: <%= @report.conclusion_date.to_s[0..10] %></p> 
          <div>Current Status: 
            <button type="button" class="btn btn-success" disabled="true">Rejected</button>
          </div><br>

@@ -4,7 +4,7 @@ class ReportsController < ApplicationController
 
   # GET /reports or /reports.json
   def index
-    Groupdate.time_zone = "Dhaka"
+    
     @reports = Report.paginate(page: params[:page], per_page: 15)
 
   end
@@ -70,10 +70,8 @@ class ReportsController < ApplicationController
     if @report.pending? #when the case is just reported
       @report.inprogress!
       @report.update(admin_id: current_admin.id)
-      # @report[:admin_id]=current_admin.id 
-      # @report_admin_id = current_admin.id
-      # @report.admin_id = current_admin.id
-
+      @report.update(investigation_date: DateTime.now)
+     
       redirect_to request.referrer, notice: "The report is under your investigation now."
     end 
     
@@ -81,12 +79,65 @@ class ReportsController < ApplicationController
 
   def completed
     @report.completed! 
+    @report.update(conclusion_date: DateTime.now)
+
     redirect_to request.referrer, notice: "The report is completed."
   end
 
   def rejected
     @report.rejected! 
+    @report.update(conclusion_date: DateTime.now)
     redirect_to request.referrer, notice: "The report is rejected."
+  end
+
+  def view_by
+    Groupdate.time_zone = false
+    type = params[:type]
+    if type== "daily"
+      @reports= Report.group_by_day(:created_at, reverse: true).count
+    end
+
+    if type== "weekly"
+      @reports= Report.group_by_week(:created_at, week_start: :monday, reverse: true).count
+    end
+
+    if type== "monthly"
+      @reports= Report.group_by_month(:created_at, format: "%b %Y", reverse: true).count
+    end
+
+    if type== "yearly"
+      @reports= Report.group_by_year(:created_at, format: "%b %Y", reverse: true).count
+    end
+
+  end
+
+  def grouped_report
+    type = params[:type]
+    date= Date.parse(params[:date])
+    
+    if type== "daily"
+      
+      @reports= Report.where(:created_at => date.beginning_of_day..date.end_of_day).paginate(page: params[:page], per_page: 15)
+
+    end
+
+    if type== "weekly"
+     
+      @reports= Report.where(:created_at => date.beginning_of_day..date.end_of_week).paginate(page: params[:page], per_page: 15)
+
+    end
+
+    if type== "monthly"
+     
+      @reports= Report.where(:created_at => date.beginning_of_day..date.end_of_month).paginate(page: params[:page], per_page: 15)
+
+    end
+
+    if type== "yearly"
+     
+      @reports= Report.where(:created_at => date.beginning_of_day..date.end_of_year).paginate(page: params[:page], per_page: 15)
+
+    end
   end
 
   private

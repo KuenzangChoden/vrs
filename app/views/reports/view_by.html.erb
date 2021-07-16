@@ -1,0 +1,47 @@
+
+
+<%= render "reports/viewoptions"%>
+
+	
+<br>
+	<table class='table table-hover'>
+ 		<thead class="table-dark">
+    <tr>
+      <th>
+        <%if params[:type]== "daily"%>
+          Day
+        <% end%>
+        <%if params[:type]== "weekly"%>
+          Week (starting)
+        <% end%>
+        <%if params[:type]== "monthly"%>
+          Month
+        <% end%>
+        <%if params[:type]== "yearly"%>
+          Year
+        <% end%>
+          
+      </th>
+      <th>Reports count</th>
+      
+    </tr>
+  </thead>
+
+  
+  <tbody>
+   	 <% @reports.each do |report| %>
+      <tr>
+        <td> 
+          <%= link_to report[0][3..-1], grouped_report_reports_path("type"=>params[:type],"date"=>report[0])%>
+          
+        </td>
+        <td><%= report[1] %> </td>
+       
+      </tr>
+   	<% end %>
+  </tbody>
+  
+</table>
+
+	
+
