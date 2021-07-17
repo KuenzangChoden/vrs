@@ -9,3 +9,20 @@
 	<p class="card-text">Submit the form and receive a confirmation mail. </p>
   </div>
 </div>
+<br>
+<%if admin_signed_in?%>
+<div class="card">
+  <h5 class="card-header">Admin guide</h5>
+  <div class="card-body">
+    <h5 class="card-title">Reports investigation: </h5>
+    <p class="card-text">As an admin, you can view all reports.</p>
+    <p class="card-text">Reports can be views in groups(daily, weekly...) also. Click on the hyper-link abobe the tables to do so.  </p>
+    <p class="card-text">You can view a report in rows or in details. Click on the sender name to open the report.</p>
+    <p class="card-text">The report status is displayed against the data.</p>
+    <p class="card-text">If a report is in pending state, click on the button to change the status to in-progress state. You become the investigating officer when you set a report in progress. </p>
+    <p class="card-text">You can mark the report as completed or rejected once the investigation is done.</p>
+    <p class="card-text"><i>Only the investigating officer can conlude(mark completed or rejected) the report.</i></p>
+  </div>
+</div>
+<%end%>
+<br>

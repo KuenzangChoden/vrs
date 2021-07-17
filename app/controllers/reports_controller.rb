@@ -78,6 +78,7 @@ class ReportsController < ApplicationController
   end
 
   def completed
+    # authorize @report, :completed
     @report.completed! 
     @report.update(conclusion_date: DateTime.now)
 

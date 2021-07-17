@@ -32,7 +32,7 @@
    	 <% @reports.each do |report| %>
       <tr>
         <td> 
-          <%= link_to report[0][3..-1], grouped_report_reports_path("type"=>params[:type],"date"=>report[0])%>
+          <%= link_to report[0], grouped_report_reports_path("type"=>params[:type],"date"=>report[0])%>
           
         </td>
         <td><%= report[1] %> </td>
