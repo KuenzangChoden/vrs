@@ -11,7 +11,7 @@
       <th>Phone</th>
       <!-- <th>Address</th> -->
       <th>Vtype</th>
-      <th>Investigator id</th>
+      <!-- <th>Investigator id</th> -->
       <th>Status</th>
       
       <th colspan="3"></th>
@@ -26,7 +26,7 @@
         <td><%= report.phone %></td>
         
         <td><%= report.vtype %></td>
-        <td><%= report.admin_id.to_s %></td>
+        <!-- <td><%= report.admin_id.to_s %></td> -->
         <%if report.status == "pending"%>
           <td> <%= link_to report.status, change_status_report_path(report), class:"btn btn-secondary" %> 
 
