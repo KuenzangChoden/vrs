@@ -1,5 +1,6 @@
 class ApplicationPolicy
   attr_reader :admin, :report
+  
 
   def initialize(admin, report)
     raise Pundit::NotAuthorizedError, "must be logged in" unless admin

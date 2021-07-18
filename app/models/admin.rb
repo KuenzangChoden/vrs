@@ -5,4 +5,5 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
          has_many :reports
+         enum role: {official:0, admin:1}
 end

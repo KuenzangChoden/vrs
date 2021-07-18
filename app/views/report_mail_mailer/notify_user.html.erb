@@ -1,3 +1,12 @@
 <h3> Thank you for reporting a violence</h3> 
 Your voice matters.
+
+<%if @report.pending? %>
  Your report has been registered. We will look into it as soon as possible.  
+<%elsif @report.inprogress? %>
+The <%= @report.vtype%> report you submitted on <%= @report.created_at %> is in progress. 
+<%elsif @report.completed? %>
+The <%= @report.vtype%> report you submitted on <%= @report.created_at %> is completed. 
+<%elsif @report.rejected? %>
+The <%= @report.vtype%> report you submitted on <%= @report.created_at %> is rejected. 
+<%end%>

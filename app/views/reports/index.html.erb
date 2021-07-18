@@ -48,8 +48,9 @@
          </td>
         <% end %>
         
-       
+       <% if policy(report).destroy? %>
         <td><%= link_to 'Delete', report, method: :delete, class:"btn btn-danger", data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

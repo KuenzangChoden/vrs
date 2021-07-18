@@ -30,7 +30,7 @@ class ReportsController < ApplicationController
       if @report.save
         ReportMailMailer.notify_user(@report).deliver
         @admins= Admin.all
-        print(@admins)
+      
         @admins.each do |admin|
           ReportMailMailer.notify_admin(admin).deliver
         end
@@ -46,6 +46,7 @@ class ReportsController < ApplicationController
   # PATCH/PUT /reports/1 or /reports/1.json
   def update
     respond_to do |format|
+      authorize @report
       if @report.update(report_params)
         format.html { redirect_to @report, notice: "Report was successfully updated." }
         format.json { render :show, status: :ok, location: @report }
@@ -58,6 +59,7 @@ class ReportsController < ApplicationController
 
   # DELETE /reports/1 or /reports/1.json
   def destroy
+    authorize @report, :destroy?
     @report.destroy
     respond_to do |format|
       format.html { redirect_to reports_url, notice: "Report was successfully deleted." }
@@ -71,23 +73,24 @@ class ReportsController < ApplicationController
       @report.inprogress!
       @report.update(admin_id: current_admin.id)
       @report.update(investigation_date: DateTime.now)
-     
+      ReportMailMailer.notify_user(@report).deliver
       redirect_to request.referrer, notice: "The report is under your investigation now."
     end 
     
   end
 
   def completed
-    # authorize @report, :completed
+    authorize @report, :completed?
     @report.completed! 
     @report.update(conclusion_date: DateTime.now)
-
+    ReportMailMailer.notify_user(@report).deliver
     redirect_to request.referrer, notice: "The report is completed."
   end
 
   def rejected
     @report.rejected! 
     @report.update(conclusion_date: DateTime.now)
+    ReportMailMailer.notify_user(@report).deliver
     redirect_to request.referrer, notice: "The report is rejected."
   end
 

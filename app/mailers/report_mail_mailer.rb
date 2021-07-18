@@ -1,8 +1,8 @@
 class ReportMailMailer < ApplicationMailer
-	def notify_user(user)
-		@user = user
+	def notify_user(report)
+		@report = report
 
-		mail(to: @user.email, subject: "VRS: Report sent")
+		mail(to: @report.email, subject: "VRS: Report sent")
 	end
 
 	def notify_admin(admin)

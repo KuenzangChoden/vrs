@@ -34,7 +34,7 @@
   </br>
   <div class="field form-group">
     <%= form.label :vtype %>
-    <%= form.select :desired_attribute, ['Domestic violence', 'Sexual harassment', "Sexual assualt", "Cyber harassment"], class: "form-control" %>
+    <%= form.select :vtype, collection: Report.vtypes.keys.to_a, class: "form-control" %>
     <% form.text_field :vtype, class:"form-control" , placeholder:"Violence Type"  %>
   </div>
   </br>

@@ -18,10 +18,14 @@
          <div>Current Status: 
            <button type="button" class="btn btn-outline-primary" disabled="true">In progress</button>
          </div><br>
-         <div>Update Status: 
+         
+          <% if policy(@report).completed? %>
+           <div>Update Status: 
             <%= link_to "Completed", completed_report_path(@report), class:"btn btn-success" %> 
             <%= link_to "Rejected", rejected_report_path(@report), class:"btn btn-danger" %>
          </div>
+          <% end %>
+         
             
          <%elsif @report.status == "completed"%>
          <p>Investigation started: <%= @report.investigation_date.to_s[0..10] %></p>   
