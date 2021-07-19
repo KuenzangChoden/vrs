@@ -18,6 +18,13 @@
   </div>
   </br>
   <div class="field form-group">
+    <%= form.label :gender %>
+    <%= form.select :gender, collection: Report.genders.keys.to_a, class: "form-control" %>
+    <% form.text_field :vtype, class:"form-control" , placeholder:"Violence Type"  %>
+  </div>
+  </br>
+  
+  <div class="field form-group">
     <%= form.label :email %>
     <%= form.email_field :email, class:"form-control", placeholder:"Email"  %>
   </div>
@@ -38,6 +45,12 @@
     <% form.text_field :vtype, class:"form-control" , placeholder:"Violence Type"  %>
   </div>
   </br>
+  <div class="field form-group">
+    <%= form.label "Describe your report if you can (<1000 characters): " %>
+    <%= form.text_area :description, class: "form-control" %>
+   
+  </div>
+  </br>
   <i>Attach image or video evidences if available. </i>
   </br>
   <div class="field form-group">
@@ -48,6 +61,12 @@
   <div class="field form-group">
     <%= form.label :videos %>
     <%= form.file_field :videos, multiple:true, class:"form-control" , placeholder:"Attach video evidence"  %>
+  </div>
+  </br>
+  <div class="field form-group">
+    <%= form.label "You are reporting as a: " %>
+    <%= form.select :reporter, collection: Report.reporters.keys.to_a, class: "form-control" %>
+   
   </div>
   </br>
   <div class="actions">

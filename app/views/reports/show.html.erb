@@ -5,11 +5,12 @@
   <p class="lead"><%= @report.email %> | <%= @report.phone %></p>
   <p>Address: <%= @report.address %></p>
   <hr class="my-4">
-  <p></p>
+  <p>Reported by a <%= @report.gender %>  <%= @report.reporter %></p>
   <p>Reported a <%= @report.vtype %>: <%= @report.created_at.to_s[0..10] %></p class="btn btn-outline-primary">
-  <br>
-  <div>
   
+  <p><%= @report.description %></p>     
+  <div>
+  <hr class="my-4">
    <%if @report.status == "pending"%>
          <%= link_to @report.status, change_status_report_path(@report), class:"btn btn-secondary" %> 
           

@@ -7,6 +7,9 @@ class Report < ApplicationRecord
 
 	enum vtype: { "Domestic violence": 0 , "Sexual harassment": 1 , "Sexual assualt": 2, "Cyber harassment": 3}
 
+	enum reporter: { "Victim": 0 , "Witness": 1 }
+
+	enum gender: { "Male": 0 , "Female": 1, "Other": 2 }
 
 	has_many_attached :images
 	has_many_attached :videos
@@ -16,8 +19,11 @@ class Report < ApplicationRecord
     message: "Enter correct phone number format" }
 	validates :address, presence: true
 	validates :vtype, presence: true
+	validates :reporter, presence: true
+	validates :gender, presence: true
 	validate :image_type
 	validate :video_type
+	validates :description, length: {maximum: 1000}, allow_nil: true
 
 
 	private
