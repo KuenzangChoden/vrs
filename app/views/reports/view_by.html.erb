@@ -32,7 +32,12 @@
    	 <% @reports.each do |report| %>
       <tr>
         <td> 
+          <%if params[:type]== "yearly"%>
+
           <%= link_to report[0][3..-1], grouped_report_reports_path("type"=>params[:type],"date"=>report[0])%>
+          <%else%>
+          <%= link_to report[0], grouped_report_reports_path("type"=>params[:type],"date"=>report[0])%>
+          <%end%>
           
         </td>
         <td><%= report[1] %> </td>
